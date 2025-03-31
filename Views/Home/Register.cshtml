@@ -1,0 +1,38 @@
+﻿@model TicketsWebApp.Models.Usuarios
+
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="card p-4 shadow" style="width: 350px; border-radius: 15px;">
+        <div class="text-center mb-4">
+            <i class="fas fa-user-plus fa-4x" style="color: #007bff;"></i>
+            <h2 class="mt-2">Crear Cuenta</h2>
+        </div>
+
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div class="alert alert-danger text-center">@ViewBag.ErrorMessage</div>
+        }
+
+        <form method="post" action="/Home/Register">
+            <div class="mb-3">
+                <label class="form-label">Nombre Completo:</label>
+                <input type="text" name="us_nombre_completo" class="form-control" required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Correo Electrónico:</label>
+                <input type="email" name="us_correo" class="form-control" required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Contraseña:</label>
+                <input type="password" name="us_clave" class="form-control" required />
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-success w-100">
+                    <i class="fas fa-save"></i> Registrar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

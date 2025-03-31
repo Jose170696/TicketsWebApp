@@ -21,6 +21,11 @@ namespace TicketsWebApp.Controllers
             return View();
         }
 
+        public IActionResult Register()
+        {
+            return View();
+        }
+
         [HttpPost]
         public async Task<IActionResult> Index(LoginModel model)
         {
@@ -50,6 +55,25 @@ namespace TicketsWebApp.Controllers
 
             return View(model);
         }
+
+        [HttpPost]
+        public IActionResult Register(Usuarios nuevoUsuario)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Lógica guardar usuario en la base de datos
+                    return RedirectToAction("Login");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.ErrorMessage = "Error al crear la cuenta: " + ex.Message;
+                }
+            }
+            return View(nuevoUsuario);
+        }
+
 
         public IActionResult Dashboard()
         {
