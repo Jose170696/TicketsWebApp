@@ -22,5 +22,15 @@ namespace TicketsWebApp.Services
 
             return response.IsSuccessStatusCode;
         }
+
+        public async Task<bool> RegistrarUsuarioAsync(Usuarios usuario)
+        {
+            var json = JsonSerializer.Serialize(usuario);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await _httpClient.PostAsync("api/usuarios/registrar", content);
+
+            return response.IsSuccessStatusCode;
+        }
     }
 }

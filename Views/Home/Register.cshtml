@@ -1,38 +1,75 @@
 ﻿@model TicketsWebApp.Models.Usuarios
-
-<div class="d-flex justify-content-center align-items-center vh-100">
-    <div class="card p-4 shadow" style="width: 350px; border-radius: 15px;">
-        <div class="text-center mb-4">
-            <i class="fas fa-user-plus fa-4x" style="color: #007bff;"></i>
-            <h2 class="mt-2">Crear Cuenta</h2>
-        </div>
-
-        @if (ViewBag.ErrorMessage != null)
-        {
-            <div class="alert alert-danger text-center">@ViewBag.ErrorMessage</div>
-        }
-
-        <form method="post" action="/Home/Register">
-            <div class="mb-3">
-                <label class="form-label">Nombre Completo:</label>
-                <input type="text" name="us_nombre_completo" class="form-control" required />
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Correo Electrónico:</label>
-                <input type="email" name="us_correo" class="form-control" required />
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Contraseña:</label>
-                <input type="password" name="us_clave" class="form-control" required />
-            </div>
-
-            <div class="text-center">
-                <button type="submit" class="btn btn-success w-100">
-                    <i class="fas fa-save"></i> Registrar
-                </button>
-            </div>
-        </form>
-    </div>
+@{
+    ViewData["Title"] = "Crear Cuenta";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="text-center mb-4">
+    <h2 class="mt-4"><i class="fas fa-user-plus"></i> Crear Cuenta</h2>
 </div>
+
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+}
+
+<form asp-action="Register" method="post" class="mt-3">
+
+    <div class="mb-3">
+        <label asp-for="us_nombre_completo" class="form-label">
+            <i class="fas fa-user"></i> Nombre Completo
+        </label>
+        <input asp-for="us_nombre_completo" class="form-control" />
+        <span asp-validation-for="us_nombre_completo" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="us_correo" class="form-label">
+            <i class="fas fa-envelope"></i> Correo Electrónico
+        </label>
+        <input asp-for="us_correo" type="email" class="form-control" />
+        <span asp-validation-for="us_correo" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="us_clave" class="form-label">
+            <i class="fas fa-lock"></i> Contraseña
+        </label>
+        <input asp-for="us_clave" type="password" class="form-control" />
+        <span asp-validation-for="us_clave" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="us_ro_identificador" class="form-label">
+            <i class="fas fa-user-tag"></i> Rol
+        </label>
+        <input asp-for="us_ro_identificador" type="number" class="form-control" />
+        <span asp-validation-for="us_ro_identificador" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="us_estado" class="form-label">
+            <i class="fas fa-toggle-on"></i> Estado
+        </label>
+        <select asp-for="us_estado" class="form-control">
+            <option value="A">Activo</option>
+            <option value="I">Inactivo</option>
+        </select>
+        <span asp-validation-for="us_estado" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="us_adicionado_por" class="form-label">
+            <i class="fas fa-user-edit"></i> Adicionado Por
+        </label>
+        <input asp-for="us_adicionado_por" class="form-control" value="Admin" />
+        <span asp-validation-for="us_adicionado_por" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">
+        <i class="fas fa-user-plus"></i> Registrar cuenta nueva
+    </button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

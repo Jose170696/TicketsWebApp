@@ -57,14 +57,23 @@ namespace TicketsWebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(Usuarios nuevoUsuario)
+        public async Task<IActionResult> Register(Usuarios nuevoUsuario)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    // Lógica guardar usuario en la base de datos
-                    return RedirectToAction("Login");
+                    var resultado = await _authService.RegistrarUsuarioAsync(nuevoUsuario);
+
+                    if (resultado)
+                    {
+                        TempData["MensajeExito"] = "¡Registro exitoso! Ahora podés iniciar sesión.";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        ViewBag.ErrorMessage = "No se pudo registrar el usuario.";
+                    }
                 }
                 catch (Exception ex)
                 {
