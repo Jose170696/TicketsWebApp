@@ -38,6 +38,7 @@ namespace TicketsWebApp.Controllers
                     if (isAuthenticated)
                     {
                         _logger.LogInformation($"Usuario autenticado: {model.us_correo}");
+                        TempData["MensajeBienvenida"] = "¡Bienvenido/a al sistema!";
                         return RedirectToAction("Dashboard");
                     }
                     else
