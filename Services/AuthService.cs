@@ -32,5 +32,19 @@ namespace TicketsWebApp.Services
 
             return response.IsSuccessStatusCode;
         }
+
+        public async Task<List<Usuarios>> ListarUsuariosAsync()
+        {
+            var response = await _httpClient.GetAsync("api/usuarios");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                var usuarios = JsonSerializer.Deserialize<List<Usuarios>>(json);
+                return usuarios;
+            }
+
+            return new List<Usuarios>(); // Retorna una lista vacía si hay un error
+        }
     }
 }
