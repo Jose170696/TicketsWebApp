@@ -1,92 +1,172 @@
-﻿@if (TempData["MensajeBienvenida"] != null)
-{
-    <div class="alert alert-success text-center position-absolute top-0 start-50 translate-middle-x mt-3" style="z-index: 1000; width: 50%;">
-        @TempData["MensajeBienvenida"]
-    </div>
-}
+﻿@model IEnumerable<TicketsWebApp.Models.Tiquetes>
 
 @{
-    ViewData["Title"] = "Dashboard";
+    ViewData["Title"] = "Mis Tiquetes";
 }
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 
-<style>
-    body, html {
-        height: 100%;
-        margin: 0;
-        background: url('/images/tickets-background.png') no-repeat center center fixed;
-        background-size: cover;
-    }
+<link rel="stylesheet" href="~/css/dashboard.css">
 
-    .dashboard-card {
-        background-color: rgba(255, 255, 255, 0.85);
-        border-radius: 20px;
-        padding: 50px;
-        width: 1000px;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-    }
+<div class="dashboard-container">
+    <div class="tiquetes-table-container text-center">
+        <h2><i class="fas fa-ticket-alt me-2"></i> Mis Tiquetes</h2>
 
-    .dashboard-btn {
-        font-size: 30px;
-        margin: 20px 0;
-        padding: 40px; 
-        width: 100%;
-        height: 150px; 
-        border-radius: 20px; 
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        position: relative;
-        flex-direction: column;
-    }
-
-        .dashboard-btn i {
-            font-size: 50px; 
+        <!-- Mensaje de Bienvenida -->
+        @if (TempData["MensajeBienvenida"] != null)
+        {
+            <div class="alert alert-success text-center position-absolute top-0 start-50 translate-middle-x mt-3" style="z-index: 1000; width: 50%;">
+                @TempData["MensajeBienvenida"]
+            </div>
         }
 
-        .dashboard-btn span {
-            font-family: 'Playfair Display', serif;
-            font-size: 40px;
-            margin-top: 10px;
-            font-weight: bold;
-            color: white;
+        <!-- Si no hay tiquetes registrados -->
+        @if (!Model.Any())
+        {
+            <div class="alert alert-info text-center">No tenés tiquetes registrados aún.</div>
         }
+        else
+        {
+            <!-- Tabla de Tiquetes -->
+            <div class="table-responsive">
+                <table class="table table-striped shadow-sm">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Asunto</th>
+                            <th>Categoría</th>
+                            <th>Importancia</th>
+                            <th>Urgencia</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var ticket in Model)
+                        {
+                            <tr>
+                                <!-- ID del Tiquete -->
+                                <td>@ticket.ti_identificador</td>
 
-    .d-flex {
-        display: flex;
-    }
+                                <!-- Asunto del Tiquete -->
+                                <td>@ticket.ti_asunto</td>
 
-    .justify-content-center {
-        justify-content: center;
-    }
+                                <!-- Categoría -->
+                                <td>
+                                    @if (ticket.ti_ca_id == 1)
+                                    {
+                                        <span class="badge bg-primary">
+                                            <i class="fas fa-network-wired me-1"></i>Redes
+                                        </span>
+                                    }
+                                    else if (ticket.ti_ca_id == 2)
+                                    {
+                                        <span class="badge bg-info">
+                                            <i class="fas fa-laptop me-1"></i>Hardware
+                                        </span>
+                                    }
+                                    else if (ticket.ti_ca_id == 3)
+                                    {
+                                        <span class="badge bg-secondary">
+                                            <i class="fas fa-cogs me-1"></i>Software
+                                        </span>
+                                    }
+                                    else if (ticket.ti_ca_id == 4)
+                                    {
+                                        <span class="badge bg-warning">
+                                            <i class="fas fa-headset me-1"></i>Soporte Técnico
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-dark">Desconocido</span>
+                                    }
+                                </td>
 
-    .align-items-center {
-        align-items: center;
-    }
+                                <!-- Importancia -->
+                                <td>
+                                    @if (ticket.ti_im_id == 1)
+                                    {
+                                        <span class="badge bg-danger">
+                                            <i class="fas fa-arrow-up me-1"></i>Alta
+                                        </span>
+                                    }
+                                    else if (ticket.ti_im_id == 2)
+                                    {
+                                        <span class="badge bg-warning">
+                                            <i class="fas fa-arrow-right me-1"></i>Media
+                                        </span>
+                                    }
+                                    else if (ticket.ti_im_id == 3)
+                                    {
+                                        <span class="badge bg-success">
+                                            <i class="fas fa-arrow-down me-1"></i>Baja
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">Desconocido</span>
+                                    }
+                                </td>
 
-    .vh-100 {
-        min-height: 100vh;
-    }
-</style>
+                                <!-- Urgencia -->
+                                <td>
+                                    @if (ticket.ti_ur_id == 1)
+                                    {
+                                        <span class="badge bg-danger">
+                                            <i class="fas fa-exclamation-circle me-1"></i>Alta
+                                        </span>
+                                    }
+                                    else if (ticket.ti_ur_id == 2)
+                                    {
+                                        <span class="badge bg-warning">
+                                            <i class="fas fa-clock me-1"></i>Media
+                                        </span>
+                                    }
+                                    else if (ticket.ti_ur_id == 3)
+                                    {
+                                        <span class="badge bg-success">
+                                            <i class="fas fa-check-circle me-1"></i>Baja
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">Desconocido</span>
+                                    }
+                                </td>
 
-<div class="d-flex justify-content-center align-items-center vh-100">
-    <div class="dashboard-card text-center">
-        <a href="/Usuarios/Users" class="btn btn-primary dashboard-btn">
-            <i class="fas fa-users"></i>
-            <span>USUARIOS</span>
-            
-        </a>
-        <a href="/Roles" class="btn btn-secondary dashboard-btn">
-            <i class="fas fa-user-tag"></i>
-            <span>ROLES DE USUARIO</span>
-            
-        </a>
-        <a href="/Tickets" class="btn btn-success dashboard-btn">
-            <i class="fas fa-ticket-alt"></i> 
-            <span>TIQUETES</span>
-            
-        </a>
+                                <!-- Estado -->
+                                <td>
+                                    @if (ticket.ti_estado == "A")
+                                    {
+                                        <span class="badge bg-success">
+                                            <i class="fas fa-check-circle me-1"></i>Activo
+                                        </span>
+                                    }
+                                    else if (ticket.ti_estado == "I")
+                                    {
+                                        <span class="badge bg-danger">
+                                            <i class="fas fa-times-circle me-1"></i>Inactivo
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">Desconocido</span>
+                                    }
+                                </td>
+
+                                <!-- Botón de Actualizar -->
+                                <td>
+                                    <a href="@Url.Action("Actualizar", "Tiquetes", new { id = ticket.ti_identificador })" class="btn btn-warning">
+                                        <i class="fas fa-edit"></i> Actualizar
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
     </div>
 </div>

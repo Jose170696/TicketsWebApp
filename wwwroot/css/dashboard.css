@@ -1,0 +1,116 @@
+﻿/* Estilo general del body y el contenedor */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background: url('/images/tickets-background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #333;
+    height: 100%;
+}
+
+.dashboard-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+
+.tiquetes-table-container {
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px;
+    width: 100%;
+    max-width: 1100px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+h2 {
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+    color: #007bff; /* Color principal para el título */
+}
+
+.alert {
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+/* Estilo para el mensaje de bienvenida */
+.alert-success {
+    background-color: #28a745;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px; /* Espacio para no pegarse con la tabla */
+}
+
+/* Estilo para la tabla */
+.table {
+    width: 100%;
+    border-radius: 8px;
+    border-collapse: collapse;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    margin-top: 30px;
+}
+
+    .table th, .table td {
+        padding: 12px 20px;
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    .table th {
+        background-color: #007bff; /* Cabecera con azul claro */
+        color: white;
+        font-size: 1.1rem;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+    }
+
+    .table tbody tr {
+        background-color: #f9f9f9; /* Fila con fondo suave */
+        transition: background-color 0.3s ease;
+    }
+
+        .table tbody tr:hover {
+            background-color: #e1e1e1; /* Efecto hover para resaltar la fila */
+        }
+
+        .table tbody tr:nth-child(even) {
+            background-color: #f1f1f1; /* Filas alternas */
+        }
+
+    .table td {
+        font-size: 1rem;
+        color: #333;
+        border-bottom: 1px solid #ddd;
+    }
+
+        .table td .badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+        }
+
+.badge.bg-success {
+    background-color: #28a745;
+}
+
+.badge.bg-secondary {
+    background-color: #6c757d;
+}
+
+/* Estilo para cuando no hay tiquetes */
+.alert-info {
+    background-color: #17a2b8;
+    color: white;
+    padding: 12px;
+    font-size: 1.1rem;
+    text-align: center;
+    border-radius: 5px;
+}

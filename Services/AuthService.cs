@@ -46,5 +46,15 @@ namespace TicketsWebApp.Services
 
             return new List<Usuarios>(); // Retorna una lista vacía si hay un error
         }
+
+        public async Task<bool> ActualizarUsuarioAsync(int id, Usuarios usuario)
+        {
+            var json = JsonSerializer.Serialize(usuario);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await _httpClient.PutAsync($"api/usuarios/{id}", content);
+
+            return response.IsSuccessStatusCode;
+        }
     }
 }
