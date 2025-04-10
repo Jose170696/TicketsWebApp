@@ -101,34 +101,10 @@ namespace TicketsWebApp.Controllers
             return View(tiquetes);
         }
 
-        public async Task<IActionResult> Actualizar(int id)
+        public IActionResult Logout()
         {
-            var tiquetes = await _ticketService.ListarTiquetesAsync();
-            var tiquete = tiquetes.FirstOrDefault(t => t.ti_identificador == id);
-
-            if (tiquete == null)
-                return NotFound();
-
-            return View(tiquete);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Actualizar(Tiquetes tiquete)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(tiquete);
-            }
-
-            var exito = await _ticketService.ActualizarTiqueteAsync(tiquete.ti_identificador, tiquete);
-
-            if (!exito)
-            {
-                ModelState.AddModelError(string.Empty, "No se pudo actualizar el tiquete.");
-                return View(tiquete);
-            }
-            TempData["MensajeExito"] = "El tiquete se actualizó correctamente.";
-            return RedirectToAction("Dashboard");
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -136,5 +112,6 @@ namespace TicketsWebApp.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
     }
 }

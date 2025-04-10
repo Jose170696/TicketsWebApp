@@ -64,11 +64,19 @@
             <span asp-validation-for="ti_estado" class="text-danger"></span>
         </div>
 
-        <div class="mb-3">
-            <label asp-for="ti_solucion" class="form-label">Solución</label>
-            <textarea asp-for="ti_solucion" class="form-control" rows="4" required></textarea>
-            <span asp-validation-for="ti_solucion" class="text-danger"></span>
-        </div>
+    <div class="mb-3">
+        <label asp-for="ti_solucion" class="form-label">Solución</label>
+        <select asp-for="ti_solucion" class="form-select" required>
+            <option value="creado" selected="@Model.ti_solucion == " creado"">Creado</option>
+            <option value="pendiente" selected="@Model.ti_solucion == " pendiente"">Pendiente</option>
+            <option value="resuelto" selected="@Model.ti_solucion == " resuelto"">Resuelto</option>
+        </select>
+        <span asp-validation-for="ti_solucion" class="text-danger"></span>
+    </div>
+
+    <!-- Campos ocultos necesarios para completar el JSON que espera el API -->
+    <input type="hidden" asp-for="ti_us_id_asigna" />
+    <input type="hidden" asp-for="ti_adicionado_por" />
 
         <div class="text-center">
             <button type="submit" class="btn btn-success">
