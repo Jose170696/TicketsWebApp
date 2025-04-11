@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Actualizar Tiquete";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var tiqueteResuelto = Model.ti_solucion == "resuelto"; // Comprobar si el tiquete está resuelto
 }
 
 <div class="text-center mb-4">
@@ -17,59 +18,70 @@
 <form asp-action="Actualizar" method="post" class="mt-3">
     <input type="hidden" asp-for="ti_identificador" />
 
-
-        <div class="mb-3">
-            <label asp-for="ti_asunto" class="form-label">Asunto</label>
-            <input asp-for="ti_asunto" class="form-control" required maxlength="150" />
-            <span asp-validation-for="ti_asunto" class="text-danger"></span>
-        </div>
-
-        <div class="mb-3">
-            <label asp-for="ti_ca_id" class="form-label">Categoría</label>
-            <select asp-for="ti_ca_id" class="form-select" required>
-                <option value="1" selected="@Model.ti_ca_id == 1" data-content="<span><i class='fas fa-network-wired'></i> Redes</span>">Redes</option>
-                <option value="2" selected="@Model.ti_ca_id == 2" data-content="<span><i class='fas fa-cogs'></i> Hardware</span>">Hardware</option>
-                <option value="3" selected="@Model.ti_ca_id == 3" data-content="<span><i class='fas fa-laptop'></i> Software</span>">Software</option>
-                <option value="4" selected="@Model.ti_ca_id == 4" data-content="<span><i class='fas fa-tools'></i> Soporte Técnico</span>">Soporte Técnico</option>
-            </select>
-            <span asp-validation-for="ti_ca_id" class="text-danger"></span>
-        </div>
-
-        <div class="mb-3">
-            <label asp-for="ti_im_id" class="form-label">Importancia</label>
-            <select asp-for="ti_im_id" class="form-select" required>
-                <option value="1" selected="@Model.ti_im_id == 1" data-content="<span><i class='fas fa-exclamation-triangle'></i> Alta</span>">Alta</option>
-                <option value="2" selected="@Model.ti_im_id == 2" data-content="<span><i class='fas fa-exclamation'></i> Media</span>">Media</option>
-                <option value="3" selected="@Model.ti_im_id == 3" data-content="<span><i class='fas fa-minus-circle'></i> Baja</span>">Baja</option>
-            </select>
-            <span asp-validation-for="ti_im_id" class="text-danger"></span>
-        </div>
-
-        <div class="mb-3">
-            <label asp-for="ti_ur_id" class="form-label">Urgencia</label>
-            <select asp-for="ti_ur_id" class="form-select" required>
-                <option value="1" selected="@Model.ti_ur_id == 1" data-content="<span><i class='fas fa-flash'></i> Alta</span>">Alta</option>
-                <option value="2" selected="@Model.ti_ur_id == 2" data-content="<span><i class='fas fa-bolt'></i> Media</span>">Media</option>
-                <option value="3" selected="@Model.ti_ur_id == 3" data-content="<span><i class='fas fa-lightbulb'></i> Baja</span>">Baja</option>
-            </select>
-            <span asp-validation-for="ti_ur_id" class="text-danger"></span>
-        </div>
-
-        <div class="mb-3">
-            <label asp-for="ti_estado" class="form-label">Estado</label>
-            <select asp-for="ti_estado" class="form-select" required>
-                <option value="A" selected="@Model.ti_estado == " A"" data-content="<span><i class='fas fa-check-circle'></i> Activo</span>">Activo</option>
-                <option value="I" selected="@Model.ti_estado == " I"" data-content="<span><i class='fas fa-times-circle'></i> Inactivo</span>">Inactivo</option>
-            </select>
-            <span asp-validation-for="ti_estado" class="text-danger"></span>
-        </div>
+    <div class="mb-3">
+        <label asp-for="ti_asunto" class="form-label">
+            <i class="fas fa-pen"></i> Asunto
+        </label>
+        <input asp-for="ti_asunto" class="form-control" required maxlength="150" disabled="@tiqueteResuelto" />
+        <span asp-validation-for="ti_asunto" class="text-danger"></span>
+    </div>
 
     <div class="mb-3">
-        <label asp-for="ti_solucion" class="form-label">Solución</label>
-        <select asp-for="ti_solucion" class="form-select" required>
-            <option value="creado" selected="@Model.ti_solucion == " creado"">Creado</option>
-            <option value="pendiente" selected="@Model.ti_solucion == " pendiente"">Pendiente</option>
-            <option value="resuelto" selected="@Model.ti_solucion == " resuelto"">Resuelto</option>
+        <label asp-for="ti_ca_id" class="form-label">
+            <i class="fas fa-cogs"></i> Categoría
+        </label>
+        <select asp-for="ti_ca_id" class="selectpicker form-control" data-width="100%" data-style="btn-outline-secondary" required disabled="@tiqueteResuelto">
+            <option value="1" selected="@Model.ti_ca_id == 1" data-content="<span><i class='fas fa-network-wired'></i> Redes</span>">Redes</option>
+            <option value="2" selected="@Model.ti_ca_id == 2" data-content="<span><i class='fas fa-cogs'></i> Hardware</span>">Hardware</option>
+            <option value="3" selected="@Model.ti_ca_id == 3" data-content="<span><i class='fas fa-laptop'></i> Software</span>">Software</option>
+            <option value="4" selected="@Model.ti_ca_id == 4" data-content="<span><i class='fas fa-tools'></i> Soporte Técnico</span>">Soporte Técnico</option>
+        </select>
+        <span asp-validation-for="ti_ca_id" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ti_im_id" class="form-label">
+            <i class="fas fa-exclamation-circle"></i> Importancia
+        </label>
+        <select asp-for="ti_im_id" class="selectpicker form-control" data-width="100%" data-style="btn-outline-secondary" required disabled="@tiqueteResuelto">
+            <option value="1" selected="@Model.ti_im_id == 1" data-content="<span><i class='fas fa-exclamation-triangle'></i> Alta</span>">Alta</option>
+            <option value="2" selected="@Model.ti_im_id == 2" data-content="<span><i class='fas fa-exclamation'></i> Media</span>">Media</option>
+            <option value="3" selected="@Model.ti_im_id == 3" data-content="<span><i class='fas fa-minus-circle'></i> Baja</span>">Baja</option>
+        </select>
+        <span asp-validation-for="ti_im_id" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ti_ur_id" class="form-label">
+            <i class="fas fa-clock"></i> Urgencia
+        </label>
+        <select asp-for="ti_ur_id" class="selectpicker form-control" data-width="100%" data-style="btn-outline-secondary" required disabled="@tiqueteResuelto">
+            <option value="1" selected="@Model.ti_ur_id == 1" data-content="<span><i class='fas fa-flash'></i> Alta</span>">Alta</option>
+            <option value="2" selected="@Model.ti_ur_id == 2" data-content="<span><i class='fas fa-bolt'></i> Media</span>">Media</option>
+            <option value="3" selected="@Model.ti_ur_id == 3" data-content="<span><i class='fas fa-lightbulb'></i> Baja</span>">Baja</option>
+        </select>
+        <span asp-validation-for="ti_ur_id" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ti_estado" class="form-label">
+            <i class="fas fa-flag-checkered"></i> Estado
+        </label>
+        <select asp-for="ti_estado" class="selectpicker form-control" data-width="100%" data-style="btn-outline-secondary" required disabled="@tiqueteResuelto">
+            <option value="A" selected="@Model.ti_estado == 'A'" data-content="<span><i class='fas fa-check-circle'></i> Activo</span>">Activo</option>
+            <option value="I" selected="@Model.ti_estado == 'I'" data-content="<span><i class='fas fa-times-circle'></i> Inactivo</span>">Inactivo</option>
+        </select>
+        <span asp-validation-for="ti_estado" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ti_solucion" class="form-label">
+            <i class="fas fa-wrench"></i> Solución
+        </label>
+        <select asp-for="ti_solucion" class="selectpicker form-control" data-width="100%" data-style="btn-outline-secondary" required disabled="@tiqueteResuelto">
+            <option value="creado" selected="@Model.ti_solucion == 'creado'" data-content="<span><i class='fas fa-check-circle'></i> Creado</span>">Creado</option>
+            <option value="pendiente" selected="@Model.ti_solucion == 'pendiente'" data-content="<span><i class='fas fa-clock'></i> Pendiente</span>">Pendiente</option>
+            <option value="resuelto" selected="@Model.ti_solucion == 'resuelto'" data-content="<span><i class='fas fa-thumbs-up'></i> Resuelto</span>">Resuelto</option>
         </select>
         <span asp-validation-for="ti_solucion" class="text-danger"></span>
     </div>
@@ -78,15 +90,25 @@
     <input type="hidden" asp-for="ti_us_id_asigna" />
     <input type="hidden" asp-for="ti_adicionado_por" />
 
-        <div class="text-center">
+    <div class="text-center">
+        @if (!tiqueteResuelto)
+        {
             <button type="submit" class="btn btn-success">
                 <i class="fas fa-save"></i> Guardar Cambios
             </button>
-            <a href="@Url.Action("Dashboard", "Home")" class="btn btn-secondary ms-3">
-                <i class="fas fa-arrow-left"></i> Volver
-            </a>
-        </div>
-    </form>
+        }
+        <a href="@Url.Action("Dashboard", "Home")" class="btn btn-secondary ms-3">
+            <i class="fas fa-arrow-left"></i> Volver
+        </a>
+    </div>
+</form>
+
+@if (tiqueteResuelto)
+{
+    <div class="alert alert-info mt-3">
+        Este tiquete ya está resuelto y no puede ser actualizado.
+    </div>
+}
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

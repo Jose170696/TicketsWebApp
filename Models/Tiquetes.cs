@@ -37,5 +37,6 @@ namespace TicketsWebApp.Models
         public DateTime? ti_fecha_modificacion { get; set; }
 
         public string? ti_modificado_por { get; set; }
+
     }
 }

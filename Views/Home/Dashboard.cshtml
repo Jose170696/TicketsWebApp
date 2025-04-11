@@ -1,5 +1,10 @@
 ﻿@model IEnumerable<TicketsWebApp.Models.Tiquetes>
-
+@if (TempData["MensajeExito"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["MensajeExito"]
+    </div>
+}
 @{
     ViewData["Title"] = "Mis Tiquetes";
 }
@@ -21,6 +26,13 @@
             </div>
         }
 
+        <!-- Botón para Crear un Nuevo Tiquete -->
+        <div class="text-end mb-3">
+            <a href="@Url.Action("Crear", "Tiquetes")" class="btn btn-success">
+                <i class="fas fa-plus-circle me-2"></i>Crear Nuevo Tiquete
+            </a>
+        </div>
+
         <!-- Si no hay tiquetes registrados -->
         @if (!Model.Any())
         {
@@ -33,12 +45,12 @@
                 <table class="table table-striped shadow-sm">
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <th>Asunto</th>
                             <th>Categoría</th>
                             <th>Importancia</th>
                             <th>Urgencia</th>
                             <th>Estado</th>
+                            <th>Solución</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -46,8 +58,6 @@
                         @foreach (var ticket in Model)
                         {
                             <tr>
-                                <!-- ID del Tiquete -->
-                                <td>@ticket.ti_identificador</td>
 
                                 <!-- Asunto del Tiquete -->
                                 <td>@ticket.ti_asunto</td>
@@ -153,6 +163,38 @@
                                     else
                                     {
                                         <span class="badge bg-secondary">Desconocido</span>
+                                    }
+                                </td>
+
+                                <!-- Solución -->
+                                <td>
+                                    @{
+                                        var solucion = ticket.ti_solucion?.Trim().ToLower();
+                                    }
+
+                                    @if (solucion == "creado")
+                                    {
+                                        <span class="badge bg-primary">
+                                            <i class="fas fa-plus-circle me-1"></i>Creado
+                                        </span>
+                                    }
+                                    else if (solucion == "pendiente")
+                                    {
+                                        <span class="badge bg-warning text-dark">
+                                            <i class="fas fa-hourglass-half me-1"></i>Pendiente
+                                        </span>
+                                    }
+                                    else if (solucion == "resuelto")
+                                    {
+                                        <span class="badge bg-success">
+                                            <i class="fas fa-check-circle me-1"></i>Resuelto
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">
+                                            <i class="fas fa-question-circle me-1"></i>Desconocido
+                                        </span>
                                     }
                                 </td>
 

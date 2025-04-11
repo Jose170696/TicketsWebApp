@@ -49,5 +49,15 @@ namespace TicketsWebApp.Services
             var response = await _httpClient.PutAsync($"api/Tiquetes/{id}", content);
             return response.IsSuccessStatusCode;
         }
+
+        public async Task<bool> CrearTiqueteAsync(Tiquetes tiquete)
+        {
+            var json = JsonSerializer.Serialize(tiquete);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync("api/Tiquetes", content);
+
+            return response.IsSuccessStatusCode;
+        }
+
     }
 }

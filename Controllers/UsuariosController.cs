@@ -52,6 +52,5 @@ namespace TicketsWebApp.Controllers
             TempData["MensajeExito"] = "El usuario se actualizó correctamente.";
             return RedirectToAction("Users");
         }
-
     }
 }

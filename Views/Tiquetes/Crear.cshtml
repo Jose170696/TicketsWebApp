@@ -1,0 +1,89 @@
+﻿@model TicketsWebApp.Models.Tiquetes
+@{
+    ViewData["Title"] = "Crear Tiquete";
+}
+
+<h2><i class="fas fa-ticket-alt me-2"></i> Crear Tiquete</h2>
+
+@if (TempData["MensajeExito"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["MensajeExito"]
+    </div>
+}
+
+@if (TempData["MensajeError"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["MensajeError"]
+    </div>
+}
+
+<form method="post">
+    <div class="form-group">
+        <label for="ti_asunto">Asunto</label>
+        <input type="text" class="form-control" id="ti_asunto" name="ti_asunto" required />
+    </div>
+
+    <div class="form-group">
+        <label for="ti_ca_id">Categoría</label>
+        <select class="form-control" id="ti_ca_id" name="ti_ca_id" required>
+            <option value="1">Redes</option>
+            <option value="2">Hardware</option>
+            <option value="3">Software</option>
+            <option value="4">Soporte Técnico</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="ti_us_asigna">Usuario asignado</label>
+        <input type="text" class="form-control" id="ti_us_id_asigna" name="ti_us_id_asigna" required value="@User.Identity.Name" />
+    </div>
+
+    <div class="form-group">
+        <label for="ti_ur_id">Urgencia</label>
+        <select class="form-control" id="ti_ur_id" name="ti_ur_id" required>
+            <option value="1">Alta</option>
+            <option value="2">Media</option>
+            <option value="3">Baja</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="ti_im_id">Importancia</label>
+        <select class="form-control" id="ti_im_id" name="ti_im_id" required>
+            <option value="1">Alta</option>
+            <option value="2">Media</option>
+            <option value="3">Baja</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="ti_estado">Estado</label>
+        <select class="form-control" id="ti_estado" name="ti_estado" required>
+            <option value="A">Activo</option>
+            <option value="I">Inactivo</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="ti_solucion">Solución</label>
+        <select class="form-control" id="ti_solucion" name="ti_solucion" required>
+            <option value="creado">Creado</option>
+            <option value="pendiente">Pendiente</option>
+            <option value="resuelto">Resuelto</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="ti_adicionado_por">Adicionado por</label>
+        <input type="text" class="form-control" id="ti_adicionado_por" name="ti_adicionado_por" required value="@User.Identity.Name" />
+    </div>
+    <br />
+    <button type="submit" class="btn btn-success">
+        <i class="fas fa-save"></i> Crear Tiquete
+    </button>
+    <a href="@Url.Action("Dashboard", "Home")" class="btn btn-secondary ms-3">
+        <i class="fas fa-arrow-left"></i> Volver
+    </a>
+</form>
